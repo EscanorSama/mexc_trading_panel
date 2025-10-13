@@ -1,0 +1,5 @@
+server/.idea/
+server/__pycache__/
+web/.next/
+web/node_modules/
+web/package-lock.json

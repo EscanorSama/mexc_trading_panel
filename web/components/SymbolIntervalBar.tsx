@@ -1,6 +1,14 @@
 'use client';
 
-type Opt = { value: string; label: string };
+type Opt = { value: string; label?: string };
+
+// Normaliza solo para mostrar (no toca el value real)
+function normalizeDisplaySymbol(s: string) {
+  return (s ?? '')
+    .replace(/\s*PERPETUAL.*/i, '') // quita " PERPETUAL" y lo que siga
+    .replace(/[ :/\\-]+/g, '_')     // : , espacios, /, \, -  -> _
+    .toUpperCase();
+}
 
 export default function SymbolIntervalBar(props: {
   symbols: Opt[];
@@ -25,7 +33,7 @@ export default function SymbolIntervalBar(props: {
       <select value={valueSymbol} onChange={(e) => onChangeSymbol(e.target.value)}>
         {symbols.map((s) => (
           <option key={s.value} value={s.value}>
-            {s.label}
+            {normalizeDisplaySymbol(s.value)}
           </option>
         ))}
       </select>
